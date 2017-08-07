@@ -1,0 +1,27 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_weight="0.83">
+
+    <TextView
+        android:id="@+id/ItemTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textSize="20sp"
+        android:layout_toStartOf="@+id/ItemButton" />
+    <TextView
+        android:id="@+id/ItemText"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_toStartOf="@+id/ItemButton"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:id="@+id/ItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
+</RelativeLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shrinkColumsxmlns="http://schemas.android.com/apk/res-auto"
+    package="com.ipx.ipx">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:name="com.ipx.ipx.HttpApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ListActivity"
+            android:label="@string/app_name1">
+        </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/app_name4">
+        </activity>
+        <activity
+            android:name=".ProjectPicActivity"
+            android:label="@string/app_name5">
+        </activity>
+        <activity
+            android:name=".ProjectPicListActivity"
+            android:label="@string/app_name5">
+        </activity>
+        <activity
+            android:name=".test.ListViewActivity"
+            android:label="@string/app_name2">
+        </activity>
+        <activity
+            android:name=".test.FragmentActivity"
+            android:label="@string/app_name3">
+        </activity>
+    </application>
+
+</manifest>

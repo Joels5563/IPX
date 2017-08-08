@@ -205,8 +205,8 @@ public class ProjectPicListActivity extends AppCompatActivity implements ViewPag
          * 载入图片进去，用当前的position 除以 图片数组长度取余数是关键
          */
         @Override
-        public Object instantiateItem(View container, int position) {
-            ((ViewPager) container).addView(imageViews[position % imageViews.length], 0);
+        public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(imageViews[position % imageViews.length], 0);
             return imageViews[position % imageViews.length];
         }
 

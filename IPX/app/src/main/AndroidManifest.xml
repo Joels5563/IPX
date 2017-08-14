@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:shrinkColumsxmlns="http://schemas.android.com/apk/res-auto"
     package="com.ipx.ipx">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name="com.ipx.ipx.HttpApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,28 +21,22 @@
         </activity>
         <activity
             android:name=".ListActivity"
-            android:label="@string/app_name1">
-        </activity>
+            android:label="@string/app_name1"/>
         <activity
             android:name=".DetailActivity"
-            android:label="@string/app_name4">
-        </activity>
+            android:label="@string/app_name4"/>
         <activity
             android:name=".ProjectPicActivity"
-            android:label="@string/app_name5">
-        </activity>
+            android:label="@string/app_name5"/>
         <activity
             android:name=".ProjectPicListActivity"
-            android:label="@string/app_name5">
-        </activity>
+            android:label="@string/app_name5"/>
         <activity
             android:name=".test.ListViewActivity"
-            android:label="@string/app_name2">
-        </activity>
+            android:label="@string/app_name2"/>
         <activity
             android:name=".test.FragmentActivity"
-            android:label="@string/app_name3">
-        </activity>
+            android:label="@string/app_name3"/>
     </application>
 
 </manifest>

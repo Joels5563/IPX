@@ -2,6 +2,9 @@ package com.ipx.ipx;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+
 import okhttp3.OkHttpClient;
 
 
@@ -11,12 +14,17 @@ import okhttp3.OkHttpClient;
 public class HttpApplication extends Application {
     private String token;
     private final OkHttpClient okHttpClient = new OkHttpClient();
+    private static RefWatcher mRefWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mRefWatcher = LeakCanary.install(this);
     }
 
+    public static RefWatcher getmRefWatcher() {
+        return mRefWatcher;
+    }
 
     public String getToken() {
         return token;

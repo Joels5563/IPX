@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SwipeRefreshLayout用于实现下拉刷新功能的控件 -->
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 继承自RecyclerView的控件,功能为当滚动到底部时会触发加载更多的回调,这个回调用户自行设定 -->
+    <com.ipx.demo_app.widgets.AutoLoadRecyclerView
+        android:id="@+id/articles_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</android.support.v4.widget.SwipeRefreshLayout>

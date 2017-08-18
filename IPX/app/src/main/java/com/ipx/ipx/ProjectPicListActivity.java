@@ -88,7 +88,7 @@ public class ProjectPicListActivity extends AppCompatActivity implements ViewPag
         //设置Adapter
         viewPager.setAdapter(new ProjectPicAdapter(length));
         //设置监听，主要是设置点点的背景
-        viewPager.setOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
         //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
         viewPager.setCurrentItem((imageViews.length) * 100);
 

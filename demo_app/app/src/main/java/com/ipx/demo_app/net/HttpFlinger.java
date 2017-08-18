@@ -1,5 +1,7 @@
 package com.ipx.demo_app.net;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import java.io.IOException;
@@ -15,11 +17,24 @@ import okhttp3.Response;
  */
 public class HttpFlinger {
     private static final String TAG = "HttpFlinger";
-    private static final OkHttpClient okHttpClient = new OkHttpClient();
+    private OkHttpClient okHttpClient = new OkHttpClient();
+    private Handler handler = new Handler(Looper.getMainLooper());
 
+    /**
+     * 采用单例模式加载
+     */
     private HttpFlinger() {
-        throw new AssertionError("HttpFlinger 私有构造器,禁止访问!");
+
     }
+
+    private static final class HttpFlingerHolder {
+        private static final HttpFlinger instance = new HttpFlinger();
+    }
+
+    public static HttpFlinger getInstance() {
+        return HttpFlingerHolder.instance;
+    }
+
 
     /**
      * http的get请求
@@ -29,9 +44,9 @@ public class HttpFlinger {
      * @param listener   响应回调
      * @param <T>        解析对象
      */
-    public static <T> void get(final String requestUrl,
-                               final ResponseParser<T> parser,
-                               final DataListener<T> listener) {
+    public <T> void get(final String requestUrl,
+                        final ResponseParser<T> parser,
+                        final DataListener<T> listener) {
         Request request = new Request.Builder()
                 .url(requestUrl)
                 .get()
@@ -41,14 +56,23 @@ public class HttpFlinger {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i(TAG, "请求数据失败");
-                listener.onFailure();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailure();
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String responseJson = response.body().string();
-                T result = parser.parseResponse(responseJson);
-                listener.onComplete(result);
+                final T result = parser.parseResponse(response);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onComplete(result);
+                    }
+                });
             }
         });
     }

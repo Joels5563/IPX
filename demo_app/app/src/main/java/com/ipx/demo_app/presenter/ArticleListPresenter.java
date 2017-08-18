@@ -21,7 +21,7 @@ import java.util.List;
 public class ArticleListPresenter extends BasePresenter<ArticleListView> {
     private static final String TAG = "ArticleListPresenter";
     //第一页数据,代表最新的数据
-    public static final int FIRST_PAGE = 1;
+    private static final int FIRST_PAGE = 1;
     //索引,用于下拉下一页数据
     private int pageIndex = FIRST_PAGE;
     private boolean isCacheLoaded = false;
@@ -44,7 +44,7 @@ public class ArticleListPresenter extends BasePresenter<ArticleListView> {
         mvpView.onShowLoading();
         String requestUrl = "https://news-at.zhihu.com/api/4/news/latest";
         Log.i(TAG, "请求第" + page + "页数据:" + requestUrl);
-        HttpFlinger.get(requestUrl, new ArticleParser(), new DataListener<List<Article>>() {
+        HttpFlinger.getInstance().get(requestUrl, new ArticleParser(), new DataListener<List<Article>>() {
             @Override
             public void onComplete(List<Article> result) {
                 mvpView.onHideLoading();
@@ -58,6 +58,10 @@ public class ArticleListPresenter extends BasePresenter<ArticleListView> {
                     //将文章列表回调给view角色
                     mvpView.onFetchedArticles(result);
                     //存储到数据库
+                    if (page == FIRST_PAGE) {
+                        //如果是第一页请求,将老数据全部删除
+                        DataBaseHelper.getInstance().deleteAllArticles();
+                    }
                     DataBaseHelper.getInstance().saveArticles(result);
                     updatePageIndex(page, result);
                 }

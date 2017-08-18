@@ -42,8 +42,18 @@ public class ArticleListFragment extends Fragment implements ArticleListView,
         View rootView = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         initRefreshView(rootView);
         initAdapter();
-        swipeRefreshLayout.setRefreshing(true);
+        loadArticleList();
         return rootView;
+    }
+
+    /**
+     * 加载数据
+     */
+    private void loadArticleList() {
+        //关联该View到presenter
+        articleListPresenter.attach(this);
+        //从数据库中加载缓存
+        articleAdapter.addItems(DataBaseHelper.getInstance().loadArticles());
     }
 
     /**
@@ -92,7 +102,6 @@ public class ArticleListFragment extends Fragment implements ArticleListView,
         recyclerView.setOnLoadListener(this);
     }
 
-
     /**
      * 当单击手势触发刷新时调用
      */
@@ -110,10 +119,7 @@ public class ArticleListFragment extends Fragment implements ArticleListView,
     @Override
     public void onResume() {
         super.onResume();
-        //关联该View到presenter
-        articleListPresenter.attach(this);
-        //从数据库中加载缓存
-        articleAdapter.addItems(DataBaseHelper.getInstance().loadArticles());
+        this.onRefresh();
     }
 
     /**

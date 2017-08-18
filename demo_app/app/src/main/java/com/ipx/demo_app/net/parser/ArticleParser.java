@@ -9,6 +9,8 @@ import com.ipx.demo_app.net.ResponseParser;
 import java.util.LinkedList;
 import java.util.List;
 
+import okhttp3.Response;
+
 /**
  * 将服务器返回的Json数据转为文章列表的解析器
  *
@@ -16,10 +18,10 @@ import java.util.List;
  **/
 public class ArticleParser implements ResponseParser<List<Article>> {
     @Override
-    public List<Article> parseResponse(String result) {
+    public List<Article> parseResponse(Response response) {
         List<Article> articleList = new LinkedList<>();
         try {
-            JSONObject jsonObject = JSON.parseObject(result);
+            JSONObject jsonObject = JSON.parseObject(response.body().string());
             JSONArray jsonArray = jsonObject.getJSONArray("stories");
             for (int i = 0, length = jsonArray.size(); i < length; i++) {
                 JSONObject articleJson = jsonArray.getJSONObject(i);

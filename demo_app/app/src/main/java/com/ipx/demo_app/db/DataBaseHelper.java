@@ -68,6 +68,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteAllArticles() {
+        database.delete(TABLE_ARTICLES, null, null);
+    }
+
 
     private ContentValues article2ContentValues(Article article) {
         //将文章转换为数据库实体

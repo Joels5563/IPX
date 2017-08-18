@@ -1,9 +1,8 @@
 package com.ipx.demo_app.adapters;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,22 +10,22 @@ import android.widget.TextView;
 
 import com.ipx.demo_app.R;
 import com.ipx.demo_app.beans.Article;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.ipx.demo_app.net.DataListener;
+import com.ipx.demo_app.net.HttpFlinger;
+import com.ipx.demo_app.net.parser.BitmapParser;
 
 /**
  * 文章的Adapter
  */
 public class ArticleAdapter extends RecyclerBaseAdapter<Article, ArticleAdapter.ArticleViewHolder> {
+    private static final String TAG = "ArticleAdapter";
+
     /**
      * 创建文章ViewHolder
      *
      * @param viewGroup 父级视图容器
      * @param position  索引
-     * @return
+     * @return VH
      */
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
@@ -45,38 +44,19 @@ public class ArticleAdapter extends RecyclerBaseAdapter<Article, ArticleAdapter.
     protected void bindDataToItemView(final ArticleViewHolder articleViewHolder, final Article item) {
         articleViewHolder.titleTv.setText(item.getTitle());
         articleViewHolder.picIv.setImageBitmap(null);
-        new AsyncTask<Void, Void, Bitmap>() {
+        HttpFlinger.getInstance().get(item.getPic(), new BitmapParser(), new DataListener<Bitmap>() {
             @Override
-            protected Bitmap doInBackground(Void... params) {
-                URL myFileUrl;
-                InputStream is = null;
-                try {
-                    myFileUrl = new URL(item.getPic());
-                    HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
-                    conn.setConnectTimeout(0);
-                    conn.setDoInput(true);
-                    conn.connect();
-                    is = conn.getInputStream();
-                    return BitmapFactory.decodeStream(is);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            public void onComplete(Bitmap bitmap) {
+                if (bitmap != null) {
+                    articleViewHolder.picIv.setImageBitmap(bitmap);
                 }
-                return null;
             }
 
             @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                articleViewHolder.picIv.setImageBitmap(bitmap);
+            public void onFailure() {
+                Log.e(TAG, "获取图片失败");
             }
-        }.execute();
+        });
         articleViewHolder.itemView.setTag(item);
     }
 

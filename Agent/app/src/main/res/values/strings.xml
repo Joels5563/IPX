@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Agent</string>
+    <string name="app_name">经纪人</string>
+    <string name="ipx_logo_desc">公司logo</string>
+    <string name="login_email">邮箱</string>
+    <string name="login_email_info">邮箱:</string>
+    <string name="login_password">密码</string>
+    <string name="login_password_info">密码:</string>
+    <string name="login">登录</string>
 </resources>

@@ -6,4 +6,7 @@
     <string name="login_password">密码</string>
     <string name="login_password_info">密码:</string>
     <string name="login">登录</string>
+    <string name="email_error_info">邮箱格式不正确</string>
+    <string name="login_error_info">登录失败,请重试</string>
+    <string name="login_success_info">登录成功!</string>
 </resources>

@@ -8,11 +8,22 @@ package com.ipx.agent.mvpview;
 public interface LoginView extends MvpView {
 
     /**
-     * 验证邮箱输入格式 <br/>
-     * 若验证不通过,返回false
-     * @param email 输入的邮箱
-     * @return 验证是否通过
+     * 设置邮箱错误信息
      */
-    boolean validateEmail(String email);
+    void setupEmailErrorInfo();
 
+    /**
+     * 登录成功跳转
+     */
+    void setupSuccessInfo(String result);
+
+    /**
+     * 登录失败错误信息
+     */
+    void setupFailureInfo();
+
+    /**
+     * 设置请求过程中信息
+     */
+    void setupProgress(int newProgress);
 }
